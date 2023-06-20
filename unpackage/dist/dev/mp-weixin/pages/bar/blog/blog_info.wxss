@@ -1,0 +1,11 @@
+
+.content {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+}
+.text {
+		margin-top: 10px;
+		font-size: 15px;
+		color: dimgray;
+}

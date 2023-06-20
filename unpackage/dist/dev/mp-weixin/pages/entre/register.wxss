@@ -1,0 +1,42 @@
+
+.content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		/* justify-content: center; */
+}
+.logo {
+		height: 100rpx;
+		width: 100rpx;
+		margin-top: 100rpx;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 50rpx;
+}
+.text-area {
+		display: flex;
+		justify-content: center;
+}
+.title {
+		font-size: 25px;
+		color: black;
+		font-weight: 400;
+}
+.register {
+		margin-top: 70rpx;
+}
+.register-input {
+		border: 1rpx;
+		border-radius: 25rpx;
+		background-color: white;
+		height: 100rpx;
+		width: 350rpx;
+		padding: 0 50rpx;
+		font-size: 35rpx;
+}
+.register-btn {
+		background: aquamarine;
+		width: 350rpx;
+		height: 90rpx;
+		border-radius: 35rpx;
+}

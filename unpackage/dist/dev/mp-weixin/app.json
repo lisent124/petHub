@@ -1,0 +1,51 @@
+{
+  "pages": [
+    "pages/entre/login",
+    "pages/bar/commodity/index",
+    "pages/index/index",
+    "pages/entre/register",
+    "pages/bar/commodity/parlour",
+    "pages/bar/blog/index",
+    "pages/bar/user/index",
+    "pages/bar/commodity/commodity_info",
+    "pages/bar/user/myOrder",
+    "pages/bar/user/paySetting",
+    "pages/bar/user/myBlog",
+    "pages/bar/blog/blog_info",
+    "pages/bar/user/userinfo",
+    "pages/bar/blog/create_blog"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3a9c40",
+    "borderStyle": "black",
+    "backgroundColor": "#F8F8F8",
+    "list": [
+      {
+        "pagePath": "pages/bar/commodity/index",
+        "iconPath": "static/icon/index_default.png",
+        "selectedIconPath": "static/icon/index_active.png",
+        "text": "服务"
+      },
+      {
+        "pagePath": "pages/bar/blog/index",
+        "iconPath": "static/icon/message_default.png",
+        "selectedIconPath": "static/icon/message_active.png",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/bar/user/index",
+        "iconPath": "static/icon/user_default.png",
+        "selectedIconPath": "static/icon/user_active.png",
+        "text": "用户"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

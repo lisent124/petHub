@@ -1,0 +1,62 @@
+
+.content {
+		display: flex;
+		flex-flow: column nowrap;
+}
+.top {
+		display: flex;
+		flex-flow: row nowrap;
+		background-color: white;
+		padding: 10px 20px;
+		align-items: center;
+		border-bottom-right-radius: 20px;
+		border-bottom-left-radius: 20px;
+}
+.top .image {
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+}
+.gender {
+		width: 20px;
+		height: 20px;
+}
+.top .user-info {
+		display: flex;
+		flex-flow: column nowrap;
+		height: 60px;
+		justify-content: space-evenly;
+		margin-left: 10px;
+}
+.user-info .name {
+		font-size: 20px;
+}
+.top .user-sp {
+		position: absolute;
+		right: 20px;
+}
+.middle {
+		display: flex;
+		flex-flow: column nowrap;
+		margin: 20px 10px 0 10px;
+		border-radius: 20px;
+}
+.middle .unit {
+		background-color: white;
+		margin: 2px;
+		padding: 0 10px;
+		border-top: 1px #f5f5f5 solid;
+		height: 45px;
+		line-height: 45px;
+		display: flex;
+		justify-content: space-between;
+		font-size: 20px;
+		font-weight: 400;
+		border-radius: 10px;
+}
+.unit-sp {
+		color: gray;
+		font-size: 20px;
+		font-weight: 600;
+		color: gainsboro;
+}

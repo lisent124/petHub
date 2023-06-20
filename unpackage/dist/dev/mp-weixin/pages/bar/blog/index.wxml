@@ -1,0 +1,1 @@
+<view><view class="add_new" bindtap="{{a}}"><image src=" ../../../static/icon/add_new.png"></image></view><view wx:for="{{b}}" wx:for-item="item"><blog-unit wx:if="{{item.b}}" u-i="{{item.a}}" bind:__l="__l" u-p="{{item.b}}"></blog-unit></view></view>

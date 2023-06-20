@@ -1,0 +1,56 @@
+
+.editor {
+		margin: 10px;
+		padding: 10px;
+		background-color: white;
+}
+.editor .text {
+		min-height: 200px;
+		font-size: 16px;
+		font-weight: 500;
+		color: black;
+}
+.editor image {
+		width: 200px;
+}
+.editor .remove-image {
+		position: relative;
+		color: red;
+		font-size: 20px;
+		left: 180px;
+		top: -35px
+}
+.editor .picture_box {
+		width: 80px;
+		height: 80px;
+		line-height: 70px;
+		text-align: center;
+		font-size: 100px;
+		font-weight: 100;
+		color: gainsboro;
+		border: 2px gainsboro solid;
+}
+.editor .picture_box:hover {
+		color: gray;
+		border: 4px gray solid;
+}
+.info {}
+.info .time {
+		position: absolute;
+		right: 20px;
+}
+.save {
+		width: 50px;
+		height: 28px;
+		line-height: 28px;
+		font-weight: 600;
+		text-align: center;
+		background-color: aquamarine;
+		color: gray;
+		border: 2px gainsboro solid;
+		border-radius: 25%;
+		position: fixed;
+		top: 8px;
+		right: 10px;
+		z-index: 999;
+}

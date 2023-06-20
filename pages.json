@@ -1,0 +1,133 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/entre/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/bar/commodity/index",
+			"style": {
+				"navigationBarTitleText": "商品展示",
+				"enablePullDownRefresh": false
+			}
+		},
+
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "index"
+			}
+		},
+		{
+			"path": "pages/entre/register",
+			"style": {
+				"navigationBarTitleText": "注册",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/bar/commodity/parlour",
+			"style": {
+				"navigationBarTitleText": "店铺详情",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/bar/blog/index",
+			"style": {
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "Blog展示",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/bar/user/index",
+			"style": {
+				"navigationBarTitleText": "个人主页",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/bar/commodity/commodity_info",
+			"style": {
+				"navigationBarTitleText": "商品详情",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/bar/user/myOrder",
+			"style": {
+				"navigationBarTitleText": "我的订单",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/bar/user/paySetting",
+			"style": {
+				"navigationBarTitleText": "支付信息",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/bar/user/myBlog",
+			"style": {
+				"navigationBarTitleText": "我的Blog",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/bar/blog/blog_info",
+			"style": {
+				"navigationBarTitleText": "Blog详情",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/bar/user/userinfo",
+			"style": {
+				"navigationBarTitleText": "个人信息",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/bar/blog/create_blog",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#3a9c40",
+		"borderStyle": "black",
+		"backgroundColor": "#F8F8F8",
+		"list": [{
+			"pagePath": "pages/bar/commodity/index",
+			"iconPath": "static/icon/index_default.png",
+			"selectedIconPath": "static/icon/index_active.png",
+			"text": "服务"
+		}, {
+			"pagePath": "pages/bar/blog/index",
+			"iconPath": "static/icon/message_default.png",
+			"selectedIconPath": "static/icon/message_active.png",
+			"text": "消息"
+		}, {
+			"pagePath": "pages/bar/user/index",
+			"iconPath": "static/icon/user_default.png",
+			"selectedIconPath": "static/icon/user_active.png",
+			"text": "用户"
+		}]
+	},
+	"uniIdRouter": {}
+}

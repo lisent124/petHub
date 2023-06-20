@@ -1,0 +1,39 @@
+
+.content {
+		margin: 0 3px;
+}
+.top {
+		display: flex;
+		flex-flow: row nowrap;
+		padding: 20px;
+		justify-content: space-between;
+		align-items: center;
+		background-color: yellowgreen;
+		border-radius: 10px;
+}
+.top-image {
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		border: orange 2px solid;
+}
+.top-name {
+		font-size: 35px;
+		font-weight: bold;
+}
+.middle {
+		margin-top: 20px;
+		padding: 10px;
+		background-color: green;
+		border-radius: 10px;
+		display: flex;
+		flex-flow: column nowrap;
+}
+.middle .info {
+		margin-top: 5px;
+		color: antiquewhite;
+}
+.pad {
+		margin-top: 10px;
+		border: orange 1px solid;
+}

@@ -1,0 +1,1 @@
+<view class="content"><view class="top"><image class="top-image" src="{{a}}"></image><view class="top-name">{{b}}</view></view><view class="middle"><view class="info">联系电话：{{c}}</view><view class="info">地址：{{d}}</view></view><view class="pad"></view><comlist wx:if="{{e}}" u-i="2e6be186-0" bind:__l="__l" u-p="{{e}}"></comlist></view>

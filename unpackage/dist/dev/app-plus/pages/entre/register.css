@@ -1,0 +1,42 @@
+
+.content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		/* justify-content: center; */
+}
+.logo {
+		height: 3.125rem;
+		width: 3.125rem;
+		margin-top: 3.125rem;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 1.5625rem;
+}
+.text-area {
+		display: flex;
+		justify-content: center;
+}
+.title {
+		font-size: 25px;
+		color: black;
+		font-weight: 400;
+}
+.register {
+		margin-top: 2.1875rem;
+}
+.register-input {
+		border: 0.03125rem;
+		border-radius: 0.78125rem;
+		background-color: white;
+		height: 3.125rem;
+		width: 10.9375rem;
+		padding: 0 1.5625rem;
+		font-size: 1.09375rem;
+}
+.register-btn {
+		background: aquamarine;
+		width: 10.9375rem;
+		height: 2.8125rem;
+		border-radius: 1.09375rem;
+}

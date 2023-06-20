@@ -1,0 +1,1 @@
+<view><view class="top"><image wx:if="{{a}}" bindtap="{{b}}" src="/static/icon/show_line.png"></image><image wx:if="{{c}}" bindtap="{{d}}" src="/static/icon/show_block.png"></image></view><show-commodities wx:if="{{e}}" u-i="21bbfde4-0" bind:__l="__l" u-p="{{e}}"></show-commodities></view>
