@@ -27,8 +27,8 @@
 				"blog_id": this.item.blog.id
 			}).then((res) => {
 				this.interactives = res.data.data
+				this.likes = this.likeCount()
 			})
-			this.likes = this.likeCount()
 		},
 		methods: {
 			likeCount() {

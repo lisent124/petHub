@@ -49,6 +49,7 @@
 						return
 					}
 				}
+
 				// 发送请求
 				api.login(data).then((res) => {
 						if (res.statusCode == 200) {
@@ -70,6 +71,7 @@
 						this.FormData.phone = ""
 						this.FormData.password = ""
 					})
+
 			}
 		}
 	}
@@ -93,9 +95,9 @@
 	}
 
 	.logo {
-		height: 100rpx;
-		width: 100rpx;
-		margin-top: 50rpx;
+		height: 300rpx;
+		width: 250rpx;
+		/* margin-top: 50rpx; */
 		margin-left: auto;
 		margin-right: auto;
 	}

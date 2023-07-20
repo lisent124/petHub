@@ -7,7 +7,7 @@ export default {
 				return "http://127.0.0.1:8000/petHub/"
 				break;
 			case 'trial': //体验版
-				return "http://192.168.31.12:8000/petHub/"
+				return "http://192.168.98.85:8000/petHub/"
 				break;
 			case 'release': //正式版
 				return ""

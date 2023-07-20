@@ -31,26 +31,19 @@ if (uni.restoreGlobal) {
 }
 (function(vue) {
   "use strict";
-  function formatAppLog(type, filename, ...args) {
-    if (uni.__log__) {
-      uni.__log__(type, filename, ...args);
-    } else {
-      console[type].apply(console, [...args, filename]);
-    }
-  }
   const operate = {
     //接口
     api: function() {
       let version = "trial";
       switch (version) {
         case "develop":
-          return "http://127.0.0.1:8000/";
+          return "http://127.0.0.1:8000/petHub/";
         case "trial":
-          return "http://192.168.31.12:8000/";
+          return "http://192.168.98.85:8000/petHub/";
         case "release":
-          return "https://www.baidu.com/";
+          return "";
         default:
-          return "http://www.baidu.com/";
+          return "http://192.168.118.1:8000/petHub/";
       }
     }
   };
@@ -69,33 +62,21 @@ if (uni.restoreGlobal) {
     // cookie验证失败
     ID_VALIDATION_FAILED: 464,
     //  找不到ID
-    ID_MISSING: 465
+    ID_MISSING: 465,
+    // 错误请求
+    ERROR_REQUEST: 466,
+    // 密码长度应大于8 小于64
+    PASSWD_LEN_ERROR: 467,
+    // 数据库出错了
+    DATABASE_ERROR: 530,
+    // 内部出错了
+    SERVICE_ERROR: 540
   };
   var exceptionProcess = function(status, msg) {
     let message = "" + msg;
-    if (status == Code.SUCCESS) {
-      return;
-    } else if (status == Code.NO_REQUEST_DATA) {
-      uni.showToast({
-        title: message,
-        icon: "error"
-      });
-    } else if (status == Code.USER_IS_NOT_EXIST) {
-      uni.showToast({
-        title: message,
-        icon: "error"
-      });
-    } else if (status == Code.USER_REGISTERED) {
-      uni.showToast({
-        title: message,
-        icon: "none"
-      });
-    } else if (status == Code.PASSWD_NOT_THE_SAME) {
-      uni.showToast({
-        title: message,
-        icon: "error"
-      });
-    } else if (status == Code.ID_VALIDATION_FAILED) {
+    if (message === "")
+      message = "未知错误";
+    if (status == Code.ID_VALIDATION_FAILED) {
       uni.showToast({
         title: message,
         icon: "error"
@@ -110,6 +91,11 @@ if (uni.restoreGlobal) {
       });
       uni.reLaunch({
         url: "/pages/entre/login"
+      });
+    } else {
+      uni.showToast({
+        title: message,
+        icon: "error"
       });
     }
   };
@@ -139,17 +125,18 @@ if (uni.restoreGlobal) {
           method,
           header,
           success: (res) => {
-            if (res.statusCode <= Code.SUCCESS_END) {
+            if (res.data.code <= Code.SUCCESS_END) {
               resolve(res);
               return;
             }
-            exceptionProcess(res.statusCode, res.data);
-            reject(res.statusCode);
+            exceptionProcess(res.data.code, res.data.message);
+            hideLoading = true;
+            reject(res.data.code);
           },
           //请求失败
           fail: (e) => {
             uni.showToast({
-              title: "请检查网络连接" + e.data.msg,
+              title: "请检查网络连接" + e.data.message,
               icon: "error"
             });
             reject();
@@ -205,7 +192,18 @@ if (uni.restoreGlobal) {
     },
     getCommodities(data) {
       return request({
-        url: "index/commodities",
+        url: "parlour/commodities",
+        header: {
+          "id": uni.getStorageSync("id")
+        }
+      });
+    },
+    getParlourCommodities(data) {
+      return request({
+        url: "parlour/commoditiesByParlour",
+        data: {
+          "parlour_id": data.parlour_id
+        },
         header: {
           "id": uni.getStorageSync("id")
         }
@@ -213,7 +211,7 @@ if (uni.restoreGlobal) {
     },
     getParlourInfo(data) {
       return request({
-        url: "index/parlour",
+        url: "parlour",
         data: {
           "parlour_id": data.parlour_id
         },
@@ -224,7 +222,7 @@ if (uni.restoreGlobal) {
     },
     getUserInfo(data) {
       return request({
-        url: "index/user",
+        url: "user",
         data: {
           "user_id": data.user_id
         },
@@ -235,7 +233,7 @@ if (uni.restoreGlobal) {
     },
     getBlogs(data) {
       return request({
-        url: "index/blogs",
+        url: "blogs",
         data: {
           "self": data.self || false
         },
@@ -247,7 +245,7 @@ if (uni.restoreGlobal) {
     createBlog(data) {
       if (data.image == "")
         return request({
-          url: "index/blogs",
+          url: "blogs",
           method: "POST",
           data: {
             "content": data.content
@@ -259,7 +257,7 @@ if (uni.restoreGlobal) {
       else
         return new Promise((resolve, reject) => {
           uni.uploadFile({
-            url: baseUrl + "index/blogs",
+            url: baseUrl + "blogs",
             // fileType: Image,
             name: "image",
             filePath: data.image,
@@ -280,7 +278,7 @@ if (uni.restoreGlobal) {
     },
     deleteBlog(data) {
       return request({
-        url: "index/blogs/delete",
+        url: "blogs/delete",
         method: "POSt",
         data: {
           "blog_id": data.blog_id
@@ -292,7 +290,7 @@ if (uni.restoreGlobal) {
     },
     hideBlog(data) {
       return request({
-        url: "index/blogs/show",
+        url: "blogs/show",
         data: {
           "blog_id": data.blog_id
         },
@@ -303,7 +301,7 @@ if (uni.restoreGlobal) {
     },
     showBlog(data) {
       return request({
-        url: "index/blogs/show",
+        url: "blogs/show",
         method: "POSt",
         data: {
           "blog_id": data.blog_id
@@ -315,7 +313,7 @@ if (uni.restoreGlobal) {
     },
     toLike(data) {
       return request({
-        url: "index/blogs/like",
+        url: "blogs/like",
         data: {
           "blog_id": data.blog_id
         },
@@ -327,7 +325,7 @@ if (uni.restoreGlobal) {
     },
     getComment(data) {
       return request({
-        url: "index/blogs/comment",
+        url: "blogs/comment",
         data: {
           "blog_id": data.blog_id
         },
@@ -338,7 +336,7 @@ if (uni.restoreGlobal) {
     },
     sendComment(data) {
       return request({
-        url: "index/blogs/comment",
+        url: "blogs/comment",
         method: "POST",
         data: {
           "blog_id": data.blog_id,
@@ -351,7 +349,7 @@ if (uni.restoreGlobal) {
     },
     updateUserInfo(data) {
       return request({
-        url: "index/user/update",
+        url: "user/update",
         data: {
           "name": data.name,
           "gender": data.gender,
@@ -364,10 +362,9 @@ if (uni.restoreGlobal) {
       });
     },
     updateUserHead(data) {
-      formatAppLog("log", "at common/api.js:199", data);
       return new Promise((resolve, reject) => {
         uni.uploadFile({
-          url: baseUrl + "index/user/head",
+          url: baseUrl + "user/head",
           // fileType: image,
           name: "head",
           filePath: data.head,
@@ -385,7 +382,7 @@ if (uni.restoreGlobal) {
     },
     createOrder(data) {
       return request({
-        url: "index/commodities/order",
+        url: "order",
         method: "POST",
         data: {
           "commodity_id": data.commodity_id,
@@ -398,7 +395,7 @@ if (uni.restoreGlobal) {
     },
     getOrder(data) {
       return request({
-        url: "index/commodities/order",
+        url: "order",
         header: {
           "id": uni.getStorageSync("id")
         }
@@ -416,8 +413,8 @@ if (uni.restoreGlobal) {
     data() {
       return {
         FormData: {
-          phone: "",
-          password: ""
+          phone: "15185205004",
+          password: "password"
         }
       };
     },
@@ -516,6 +513,13 @@ if (uni.restoreGlobal) {
     ]);
   }
   const PagesEntreLogin = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$g], ["__file", "D:/Projects/UniAppProjects/StudyTest/petHub/pages/entre/login.vue"]]);
+  function formatAppLog(type, filename, ...args) {
+    if (uni.__log__) {
+      uni.__log__(type, filename, ...args);
+    } else {
+      console[type].apply(console, [...args, filename]);
+    }
+  }
   const _sfc_main$g = {
     data() {
       return {};
@@ -649,29 +653,29 @@ if (uni.restoreGlobal) {
     data() {
       return {
         mode: true,
-        commodities: Array
+        commodities: []
       };
     },
     onLoad() {
-      api.getCommodities().then(
-        (res) => {
-          this.commodities = res.data.dataList;
-        },
-        (err) => {
-          formatAppLog("log", "at pages/bar/commodity/index.vue:26", err);
-        }
-      );
+      this.getCommodities();
     },
     methods: {
       changeMode() {
         this.mode = !this.mode;
+      },
+      getCommodities() {
+        api.getCommodities().then(
+          (res) => {
+            this.commodities = this.commodities.concat(res.data.data);
+          },
+          (err) => {
+            formatAppLog("log", "at pages/bar/commodity/index.vue:35", err);
+          }
+        );
       }
     },
     onReachBottom() {
-      api.getCommodities().then((res) => {
-        this.commodities = this.commodities.concat(res.data.dataList);
-        formatAppLog("log", "at pages/bar/commodity/index.vue:38", this.commodities.length);
-      });
+      this.getCommodities();
     },
     components: {
       showCommodities: comlist
@@ -772,11 +776,8 @@ if (uni.restoreGlobal) {
         for (let foo in data) {
           if (data[foo] === "") {
             uni.showToast({
-              title: "请输入",
+              title: "请输入" + info,
               icon: "error"
-            });
-            uni.reLaunch({
-              url: "register"
             });
             return;
           }
@@ -788,6 +789,7 @@ if (uni.restoreGlobal) {
           });
         }
         api.register(data).then((res) => {
+          formatAppLog("log", "at pages/entre/register.vue:64", res);
           uni.reLaunch({
             url: "login"
           });
@@ -888,16 +890,22 @@ if (uni.restoreGlobal) {
     data() {
       return {
         parlour: Object,
-        dataList: Array
+        dataList: []
       };
     },
     onLoad(options) {
       let id = options.id;
+      api.getParlourCommodities({
+        "parlour_id": id
+      }).then((res) => {
+        this.dataList = res.data.data;
+      }, (err) => {
+        formatAppLog("log", "at pages/bar/commodity/parlour.vue:33", err);
+      });
       api.getParlourInfo({
         "parlour_id": id
       }).then((res) => {
-        this.parlour = res.data.parlour;
-        this.dataList = res.data.dataList;
+        this.parlour = res.data.data;
       });
     },
     methods: {},
@@ -1090,13 +1098,13 @@ if (uni.restoreGlobal) {
     },
     computed: {
       havePicture: function() {
-        if (this.blog.picture)
+        let sign = this.blog.picture;
+        if (sign)
           return true;
-        else
-          return false;
       },
       haveComment: function() {
-        if (this.user.comment)
+        let sign = this.user.comment;
+        if (sign)
           return true;
         else
           return false;
@@ -1221,8 +1229,10 @@ if (uni.restoreGlobal) {
       };
     },
     onLoad() {
-      api.getBlogs({}).then((res) => {
-        this.dataList = res.data.dataList;
+      api.getBlogs({
+        "self": false
+      }).then((res) => {
+        this.dataList = res.data.data;
       });
       uni.$on("deleteBlog", (data) => {
         this.deleteBlog(data);
@@ -1249,15 +1259,17 @@ if (uni.restoreGlobal) {
       }
     },
     onReachBottom(option) {
-      api.getBlogs({}).then((res) => {
-        this.dataList = this.dataList.concat(res.data.dataList);
+      api.getBlogs({
+        "self": false
+      }).then((res) => {
+        this.dataList = this.dataList.concat(res.data.data);
       });
     },
     onPullDownRefresh() {
       setTimeout(() => {
         uni.stopPullDownRefresh();
       }, 1e3);
-      formatAppLog("log", "at pages/bar/blog/index.vue:61", "pulldown");
+      formatAppLog("log", "at pages/bar/blog/index.vue:65", "pulldown");
     },
     components: {
       blogUnit
@@ -1301,7 +1313,7 @@ if (uni.restoreGlobal) {
       api.getUserInfo({
         "user_id": id
       }).then((res) => {
-        this.user = res.data.user;
+        this.user = res.data.data;
       });
     },
     computed: {
@@ -1390,7 +1402,7 @@ if (uni.restoreGlobal) {
           class: "unit",
           onClick: _cache[2] || (_cache[2] = ($event) => $options.toPaySetting())
         }, [
-          vue.createElementVNode("view", { class: "pay-setting" }, "支付设置"),
+          vue.createElementVNode("view", { class: "pay-setting" }, "安全设置"),
           vue.createElementVNode("view", { class: "unit-sp" }, " > ")
         ]),
         vue.createElementVNode("view", {
@@ -1570,7 +1582,7 @@ if (uni.restoreGlobal) {
     },
     onLoad() {
       api.getOrder().then((res) => {
-        this.dataList = res.data.dataList;
+        this.dataList = res.data.data;
       });
     },
     methods: {
@@ -1663,14 +1675,16 @@ if (uni.restoreGlobal) {
   const _sfc_main$5 = {
     data() {
       return {
-        dataList: []
+        dataList: [],
+        self: 1
       };
     },
     onLoad() {
       api.getBlogs({
-        "self": true
+        "self": this.self
       }).then((res) => {
-        this.dataList = res.data.dataList;
+        this.dataList = res.data.data;
+        this.self += 1;
       }), uni.$on("deleteBlog", (data) => {
         this.deleteBlog(data);
       });
@@ -1681,10 +1695,33 @@ if (uni.restoreGlobal) {
           let blog = this.dataList[i].blog;
           if (blog.id == data.id) {
             this.dataList.splice(i, 1);
+            uni.showToast({
+              title: "删除成功",
+              icon: "success"
+            });
             break;
           }
         }
       }
+    },
+    onReachBottom() {
+      if (this.self == false) {
+        uni.showToast({
+          title: "已经到底了！",
+          icon: "none"
+        });
+        return;
+      }
+      api.getBlogs({
+        "self": this.self
+      }).then((res) => {
+        formatAppLog("log", "at pages/bar/user/myBlog.vue:57", this.self, res.data.data.length);
+        this.dataList = this.dataList.concat(res.data.data);
+        formatAppLog("log", "at pages/bar/user/myBlog.vue:59", this.self, this.dataList.length);
+        this.self += 1;
+      }, (err) => {
+        this.self = false;
+      });
     },
     components: {
       blogUnit
@@ -1722,6 +1759,14 @@ if (uni.restoreGlobal) {
         return true;
       }
     },
+    computed: {
+      haveComment: function() {
+        let sign = this.item.comment;
+        if (sign === true || sign === null)
+          return true;
+        return false;
+      }
+    },
     props: {
       interactives: Array
     }
@@ -1733,7 +1778,10 @@ if (uni.restoreGlobal) {
         null,
         vue.renderList($props.interactives, (item) => {
           return vue.openBlock(), vue.createElementBlock("view", null, [
-            vue.createElementVNode("view", { class: "unit" }, [
+            item.comment ? (vue.openBlock(), vue.createElementBlock("view", {
+              key: 0,
+              class: "unit"
+            }, [
               vue.createElementVNode("view", { class: "top" }, [
                 vue.createElementVNode("view", { class: "user-info" }, [
                   vue.createElementVNode("image", {
@@ -1763,7 +1811,7 @@ if (uni.restoreGlobal) {
                 1
                 /* TEXT */
               )
-            ])
+            ])) : vue.createCommentVNode("v-if", true)
           ]);
         }),
         256
@@ -1776,8 +1824,9 @@ if (uni.restoreGlobal) {
     data() {
       return {
         item: Object,
-        interactives: Array,
-        flag: false
+        interactives: [],
+        flag: false,
+        likes: 0
       };
     },
     onLoad(options) {
@@ -1785,25 +1834,26 @@ if (uni.restoreGlobal) {
       api.getComment({
         "blog_id": this.item.blog.id
       }).then((res) => {
-        this.interactives = res.data.dataList;
+        this.interactives = res.data.data;
+        this.likes = this.likeCount();
       });
     },
-    methods: {},
+    methods: {
+      likeCount() {
+        let count = 0;
+        for (let i = 0; i < this.interactives.length; i++) {
+          if (this.interactives[i]["like"])
+            count++;
+        }
+        return count;
+      }
+    },
     computed: {
       haveComment() {
         if (this.interactives.length == 0)
           return false;
         else
           return true;
-      },
-      likes: function() {
-        let count = 0;
-        for (let i = 0; i < this.interactives.length; i++) {
-          formatAppLog("log", "at pages/bar/blog/blog_info.vue:42", this.interactives[i].like);
-          if (this.interactives[i].like)
-            count++;
-        }
-        return count;
       }
     },
     components: {
@@ -1823,7 +1873,7 @@ if (uni.restoreGlobal) {
       vue.createElementVNode(
         "view",
         null,
-        "有" + vue.toDisplayString($options.likes) + "人赞了",
+        "有" + vue.toDisplayString($data.likes) + "人赞了",
         1
         /* TEXT */
       ),
@@ -1870,7 +1920,9 @@ if (uni.restoreGlobal) {
                   beforePage.user = this.user;
                 }
               });
+              return;
             }
+            uni.navigateBack();
           }
         });
       } else {

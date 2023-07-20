@@ -172,7 +172,7 @@
 	}
 
 	.bottom {
-		position: fixed;
+		position: flex;
 		bottom: 0;
 		left: 0;
 		background-color: white;

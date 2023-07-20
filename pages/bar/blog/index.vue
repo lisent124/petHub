@@ -19,7 +19,9 @@
 			}
 		},
 		onLoad() {
-			api.getBlogs({}).then((res) => {
+			api.getBlogs({
+				"self": false
+			}).then((res) => {
 				this.dataList = res.data.data
 			})
 			uni.$on("deleteBlog", (data) => {
@@ -48,7 +50,9 @@
 			}
 		},
 		onReachBottom(option) {
-			api.getBlogs({}).then((res) => {
+			api.getBlogs({
+				"self": false
+			}).then((res) => {
 				this.dataList = this.dataList.concat(res.data.data)
 			})
 		},

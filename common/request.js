@@ -39,6 +39,7 @@ export default class Request {
 				title: '加载中...',
 			});
 		}
+
 		// 返回promise
 		return new Promise((resolve, reject) => {
 			// 请求
@@ -63,6 +64,7 @@ export default class Request {
 				},
 				//请求失败
 				fail: (e) => {
+
 					uni.showToast({
 						title: "请检查网络连接" + e.data.message,
 						icon: 'error'

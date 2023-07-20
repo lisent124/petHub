@@ -22,9 +22,8 @@ const Code = {
 	DATABASE_ERROR: 530,
 	// 内部出错了
 	SERVICE_ERROR: 540,
-
-
 }
+
 var exceptionProcess = function(status, msg) {
 	let message = "" + msg
 	if (message === "") message = "未知错误"

@@ -88,9 +88,13 @@
 		width: 140px;
 		text-align: center;
 		font-weight: 800;
-		font-size: 20px;
+		font-size: 18px;
+		word-break: break-all;
 		overflow: hidden;
-		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+
 	}
 
 	.row-unit .name:hover {
@@ -147,10 +151,13 @@
 	}
 
 	.column-unit-content .name {
-		font-size: 25px;
+		font-size: 20px;
 		font-weight: 700;
+		word-break: break-all;
 		overflow: hidden;
-		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
 	}
 
 	.column-unit-content .name:hover {
