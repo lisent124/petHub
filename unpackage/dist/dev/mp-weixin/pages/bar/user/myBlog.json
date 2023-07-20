@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "我的Blog",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "blog-unit": "../../templates/blog-unit"
-  }
-}

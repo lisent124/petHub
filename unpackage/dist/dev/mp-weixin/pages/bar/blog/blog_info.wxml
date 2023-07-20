@@ -1,1 +1,0 @@
-<view class="content"><blog-unit wx:if="{{a}}" u-i="76cc68d0-0" bind:__l="__l" u-p="{{a}}"></blog-unit><comment wx:if="{{b}}" u-i="76cc68d0-1" bind:__l="__l" u-p="{{c}}"></comment><view wx:if="{{d}}" class="text">还没有人评论哦......</view></view>

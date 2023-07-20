@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "商品展示",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "show-commodities": "../../templates/commodity-list"
-  }
-}

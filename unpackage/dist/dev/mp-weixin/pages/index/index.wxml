@@ -1,1 +1,0 @@
-<view><view><button bindtap="{{a}}">Home</button><button bindtap="{{c}}">{{b}}</button></view><view>{{d}}</view></view>

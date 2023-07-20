@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "Blog详情",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "comment": "../../templates/comment_info",
-    "blog-unit": "../../templates/blog-unit"
-  }
-}
